@@ -1,0 +1,197 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  creationTimestamp: "2024-07-10T18:10:39Z"
+  generation: 26
+  name: helm-jenkins
+  namespace: argocd
+  resourceVersion: "4634915"
+  uid: 101a3ae2-4780-4a33-bf62-15054c1853b6
+spec:
+  destination:
+    namespace: argocd-applications
+    server: https://kubernetes.default.svc
+  project: default
+  source:
+    chart: jenkins-helm
+    repoURL: https://kirilllka1993.github.io/helmjenkins/
+    targetRevision: 1.1.0
+  syncPolicy:
+    automated:
+      prune: true
+status:
+  conditions:
+  - lastTransitionTime: "2024-07-10T18:15:50Z"
+    message: 'Failed sync attempt to 1.1.0: one or more objects failed to apply, reason:
+      error running rbacReconcile: error running kubectl auth reconcile: namespaces
+      "argocd-applications" not found (retried 5 times).'
+    type: SyncError
+  controllerNamespace: argocd
+  health:
+    status: Healthy
+  operationState:
+    finishedAt: "2024-07-10T18:15:50Z"
+    message: 'one or more objects failed to apply, reason: error running rbacReconcile:
+      error running kubectl auth reconcile: namespaces "argocd-applications" not found
+      (retried 5 times).'
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        limit: 5
+      sync:
+        prune: true
+        revision: 1.1.0
+    phase: Failed
+    retryCount: 5
+    startedAt: "2024-07-10T18:10:39Z"
+    syncResult:
+      resources:
+      - group: ""
+        hookPhase: Running
+        kind: Secret
+        message: secret/jenkins-secret unchanged
+        name: jenkins-secret
+        namespace: helm-jenkins
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: ConfigMap
+        message: configmap/jenkins-config unchanged
+        name: jenkins-config
+        namespace: helm-jenkins
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: ConfigMap
+        message: configmap/basic-security unchanged
+        name: basic-security
+        namespace: helm-jenkins
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: rbac.authorization.k8s.io
+        hookPhase: Failed
+        kind: ClusterRoleBinding
+        message: 'error running rbacReconcile: error running kubectl auth reconcile:
+          namespaces "argocd-applications" not found'
+        name: helm-jenkins
+        namespace: argocd-applications
+        status: SyncFailed
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: Service
+        message: service/helm-jenkins unchanged
+        name: helm-jenkins
+        namespace: helm-jenkins
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        kind: Deployment
+        message: deployment.apps/helm-jenkins configured
+        name: helm-jenkins
+        namespace: helm-jenkins
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: networking.k8s.io
+        hookPhase: Running
+        kind: Ingress
+        message: ingress.networking.k8s.io/ingress-jenkins unchanged
+        name: ingress-jenkins
+        namespace: helm-jenkins
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: networking.k8s.io
+        hookPhase: Running
+        kind: Ingress
+        message: ingress.networking.k8s.io/ingress-helm-jenkins unchanged
+        name: ingress-helm-jenkins
+        namespace: helm-jenkins
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      revision: 1.1.0
+      source:
+        chart: jenkins-helm
+        repoURL: https://kirilllka1993.github.io/helmjenkins/
+        targetRevision: 1.1.0
+  reconciledAt: "2024-07-10T18:15:50Z"
+  resources:
+  - kind: ConfigMap
+    name: basic-security
+    namespace: helm-jenkins
+    status: Synced
+    version: v1
+  - kind: ConfigMap
+    name: jenkins-config
+    namespace: helm-jenkins
+    status: Synced
+    version: v1
+  - kind: Secret
+    name: jenkins-secret
+    namespace: helm-jenkins
+    status: Synced
+    version: v1
+  - health:
+      status: Healthy
+    kind: Service
+    name: helm-jenkins
+    namespace: helm-jenkins
+    status: Synced
+    version: v1
+  - group: apps
+    health:
+      status: Healthy
+    kind: Deployment
+    name: helm-jenkins
+    namespace: helm-jenkins
+    status: Synced
+    version: v1
+  - group: networking.k8s.io
+    health:
+      status: Healthy
+    kind: Ingress
+    name: ingress-helm-jenkins
+    namespace: helm-jenkins
+    status: Synced
+    version: v1
+  - group: networking.k8s.io
+    health:
+      status: Healthy
+    kind: Ingress
+    name: ingress-jenkins
+    namespace: helm-jenkins
+    status: Synced
+    version: v1
+  - group: rbac.authorization.k8s.io
+    kind: ClusterRoleBinding
+    name: helm-jenkins
+    status: OutOfSync
+    version: v1
+  sourceType: Helm
+  summary:
+    externalURLs:
+    - http://helm-jenkins.k8s-1.sa/
+    images:
+    - jfrog.it-academy.by/public/jenkins-ci:Kirill_Kazimirov
+  sync:
+    comparedTo:
+      destination:
+        namespace: argocd-applications
+        server: https://kubernetes.default.svc
+      source:
+        chart: jenkins-helm
+        repoURL: https://kirilllka1993.github.io/helmjenkins/
+        targetRevision: 1.1.0
+    revision: 1.1.0
+    status: OutOfSync
